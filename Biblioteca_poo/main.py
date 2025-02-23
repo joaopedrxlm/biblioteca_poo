@@ -11,9 +11,10 @@ while True:
     print("2. Listar Livros")
     print("3. Cadastrar Usuário")
     print("4. Listar Usuários")
-    print("5. Realizar Empréstimo")
-    print("6. Devolver Livro")
-    print("7. Sair")
+    print("5. Buscar Livro")
+    print("6. Realizar Empréstimo")
+    print("7. Devolver Livro")
+    print("8. Sair")
 
     opcao = input("Escolha uma opção: ")
 
@@ -59,15 +60,40 @@ while True:
                 usuario.exibir_info()
 
     elif opcao == "5":
+        termo = input("Digite o título ou autor para buscar: ")
+        encontrados = []
+
+        for livro in livros:
+            if livro.corresponde(termo):
+                encontrados.append(livro)
+
+        if encontrados:
+            print("\n=== LIVROS ENCONTRADOS ===")
+            for livro in encontrados:
+                livro.exibir_detalhes()
+        else:
+            print("Nenhum livro encontrado com esse termo.")
+
+    elif opcao == "6":
         matricula = input("Informe a matrícula do usuário: ")
-        usuario = next((u for u in usuarios if u._Usuario__matricula == matricula), None)
+        usuario = None
+
+        for u in usuarios:
+            if u._Usuario__matricula == matricula:
+                usuario = u
+                break  # Para a busca assim que encontrar
 
         if not usuario:
             print("Usuário não encontrado.")
             continue
 
         codigo = input("Informe o código do livro: ")
-        livro = next((l for l in livros if l.get_codigo() == codigo), None)
+        livro = None
+
+        for l in livros:
+            if l.get_codigo() == codigo:
+                livro = l
+                break
 
         if not livro:
             print("Livro não encontrado.")
@@ -78,16 +104,26 @@ while True:
         else:
             print("Não foi possível realizar o empréstimo.")
 
-    elif opcao == "6":
+    elif opcao == "7":
         matricula = input("Informe a matrícula do usuário: ")
-        usuario = next((u for u in usuarios if u._Usuario__matricula == matricula), None)
+        usuario = None
+
+        for u in usuarios:
+            if u._Usuario__matricula == matricula:
+                usuario = u
+                break
 
         if not usuario:
             print("Usuário não encontrado.")
             continue
 
         codigo = input("Informe o código do livro: ")
-        livro = next((l for l in livros if l.get_codigo() == codigo), None)
+        livro = None
+
+        for l in livros:
+            if l.get_codigo() == codigo:
+                livro = l
+                break
 
         if not livro:
             print("Livro não encontrado.")
@@ -96,7 +132,7 @@ while True:
         usuario.devolver_livro(livro)
         print("Livro devolvido com sucesso!")
 
-    elif opcao == "7":
+    elif opcao == "8":
         print("Saindo do sistema...")
         break
 

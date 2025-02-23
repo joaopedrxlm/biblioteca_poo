@@ -21,3 +21,8 @@ class Livro:
     def get_codigo(self):
         """Retorna o código único do livro"""
         return self.__codigo
+
+    def corresponde(self, termo: str):
+        """Verifica se o título ou o autor do livro contém o termo pesquisado (case insensitive)."""
+        termo = termo.lower()
+        return termo in self.__titulo.lower() or termo in self.__autor.lower()
