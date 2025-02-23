@@ -31,14 +31,14 @@ while True:
         if not livros:
             print("Nenhum livro cadastrado.")
         else:
-            print("\n=== LIVROS DISPONÍVEIS ===")
+            print("\n=== LIVROS CADASTRADOS ===")
             for livro in livros:
                 livro.exibir_detalhes()
 
     elif opcao == "3":
         nome = input("Nome: ")
         email = input("E-mail: ")
-        matricula = input("Número de Matrícula: ")
+        matricula = input("Número de Matrícula/SIAPE: ")
         tipo = input("Tipo (E - Estudante / P - Professor): ").strip().upper()
 
         if tipo == "E":
@@ -64,7 +64,7 @@ while True:
         encontrados = []
 
         for livro in livros:
-            if livro.corresponde(termo):
+            if livro.buscar(termo):
                 encontrados.append(livro)
 
         if encontrados:
@@ -72,7 +72,7 @@ while True:
             for livro in encontrados:
                 livro.exibir_detalhes()
         else:
-            print("Nenhum livro encontrado com esse termo.")
+            print("Nenhum livro encontrado.")
 
     elif opcao == "6":
         matricula = input("Informe a matrícula do usuário: ")
